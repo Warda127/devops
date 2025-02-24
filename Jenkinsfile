@@ -10,10 +10,12 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
+        stage('GIT') {
             steps {
-                git branch: 'main', url: 'https://github.com/Warda127/devops.git'
-            }
+echo "Getting Project from Git"
+                git url: 'https://github.com/Warda127/devops.git', branch: 'warda'
+
+                            }
         }
 
         stage('MVN CLEAN') {
