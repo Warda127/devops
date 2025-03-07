@@ -7,6 +7,8 @@ pipeline {
 
     environment {
         SONARQUBE = 'SonarQube' 
+NEXUS_REPO = 'http://192.168.150.245:8081/repository/maven-releases/'
+    
     }
 
     stages {
@@ -42,10 +44,28 @@ echo "Getting Project from Git"
 
         stage('Build') {
             steps {
-                sh 'mvn install' 
+                sh 'mvn install -DskipTests' 
+            }
+        }
+
+        stage('Deploy to Nexus') {
+    steps {
+        withCredentials([usernamePassword(credentialsId: 'nexus-credentials-id', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD')]) {
+            script {
+                echo "Attempting to deploy to Nexus at ${NEXUS_REPO}"
+                try {
+                    sh '''
+                        mvn deploy -DskipTests -DrepositoryId=deploymentRepo -Durl=${NEXUS_REPO} -Dusername=${NEXUS_USERNAME} -Dpassword=${NEXUS_PASSWORD}
+                    '''
+                } catch (Exception e) {
+                    echo "Deploy to Nexus failed: ${e.getMessage()}"
+                    throw e
+                }
             }
         }
     }
+}
+}
 
     post {
         success {
