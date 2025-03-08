@@ -49,22 +49,10 @@ echo "Getting Project from Git"
         }
 
         stage('Deploy to Nexus') {
-    steps {
-        withCredentials([usernamePassword(credentialsId: 'nexus-credentials-id', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD')]) {
-            script {
-                echo "Attempting to deploy to Nexus at ${NEXUS_REPO}"
-                try {
-                    sh '''
-                        mvn deploy -DskipTests -DrepositoryId=deploymentRepo -Durl=${NEXUS_REPO} -Dusername=${NEXUS_USERNAME} -Dpassword=${NEXUS_PASSWORD}
-                    '''
-                } catch (Exception e) {
-                    echo "Deploy to Nexus failed: ${e.getMessage()}"
-                    throw e
-                }
+            steps {
+                sh "${MAVEN_HOME}/bin/mvn deploy -DskipTests"
             }
         }
-    }
-}
 }
 
     post {

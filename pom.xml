@@ -63,7 +63,24 @@
                     </excludes>
                 </configuration>
             </plugin>
-        </plugins>
-    </build>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <version>3.1.0</version>
+            <configuration>
+                <repositoryId>deploymentRepo</repositoryId>
+                <url>http://192.168.150.245:8081/repository/maven-releases/</url>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+
+<distributionManagement>
+    <repository>
+        <id>deploymentRepo</id>
+        <name>Nexus Repository</name>
+        <url>http://192.168.150.245:8081/repository/maven-releases/</url>
+    </repository>
+</distributionManagement>
 
 </project>
