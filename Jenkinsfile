@@ -49,10 +49,17 @@ echo "Getting Project from Git"
         }
 
         stage('Deploy to Nexus') {
-            steps {
-                sh "${MAVEN_HOME}/bin/mvn deploy -DskipTests"
+    steps {
+        script {
+            try {
+                sh 'mvn deploy -DskipTests'
+            } catch (Exception e) {
+                echo "Erreur lors du déploiement sur Nexus"
+                error("Échec du déploiement")
             }
         }
+    }
+}
 }
 
     post {
