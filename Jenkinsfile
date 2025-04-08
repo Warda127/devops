@@ -48,19 +48,44 @@ echo "Getting Project from Git"
             }
         }
 
-        stage('Deploy to Nexus') {
+       stage('Deploy to Nexus') {
+            steps {
+                script {
+                    try {
+                        sh 'mvn deploy -DskipTests'
+                    } catch (Exception e) {
+                        echo "Erreur lors du déploiement sur Nexus"
+                        error("Échec du déploiement")
+                    }
+                }
+            }
+        }
+
+ stage('Build Docker Image') {
     steps {
         script {
-            try {
-                sh 'mvn deploy -DskipTests'
-            } catch (Exception e) {
-                echo "Erreur lors du déploiement sur Nexus"
-                error("Échec du déploiement")
-            }
+            echo " Building Docker image..."
+            dockerImage = docker.build("espritt/khaddem:1.0.0")
         }
     }
 }
-}
+
+
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
+                        sh "docker push espritt/khaddem:1.0.0"
+                    }
+                }
+            }
+        }
+    }
+
+
+
 
     post {
         success {
