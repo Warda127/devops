@@ -48,19 +48,7 @@ echo "Getting Project from Git"
             }
         }
 
-       stage('Deploy to Nexus') {
-            steps {
-                script {
-                    try {
-                        sh 'mvn deploy -DskipTests'
-                    } catch (Exception e) {
-                        echo "Erreur lors du déploiement sur Nexus"
-                        error("Échec du déploiement")
-                    }
-                }
-            }
-        }
-
+       
  stage('Build Docker Image') {
     steps {
         script {
