@@ -63,11 +63,11 @@ echo "Getting Project from Git"
          stage('Push Docker Image') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                        echo "Logging into Docker Hub..."
-                        sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
-                        sh "docker push espritt/khaddem:1.0.0"
-                    }
+                   withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+    echo "Logging into Docker Hub..."
+    sh "docker login -u ${DOCKER_USER} --password-stdin <<< ${DOCKER_PASS}"
+}
+
                 }
             }
         }
