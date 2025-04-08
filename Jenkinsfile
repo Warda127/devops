@@ -75,7 +75,6 @@ echo "Getting Project from Git"
 
 
 
-
     post {
         success {
             echo 'Build et analyse SonarQube réussis !'  // Message si le pipeline réussit
