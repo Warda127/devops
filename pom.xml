@@ -72,6 +72,11 @@
                 <url>http://192.168.150.245:8081/repository/maven-releases/</url>
             </configuration>
         </plugin>
+        <plugin>
+      <groupId>org.sonarsource.scanner.maven</groupId>
+      <artifactId>sonar-maven-plugin</artifactId>
+      <version>4.0.0.4121</version>
+    </plugin>
     </plugins>
 </build>
 
