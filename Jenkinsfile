@@ -74,7 +74,8 @@ echo "Getting Project from Git"
             steps {
                 script {
                     echo "Deploying with Docker Compose..."
-                    sh 'docker-compose -f docker-compose.yml up -d --build'
+                   sh 'docker-compose -f ./docker-compose.yml up -d --build'
+
                 }
             }
         }
