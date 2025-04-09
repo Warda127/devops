@@ -70,6 +70,14 @@ echo "Getting Project from Git"
                 }
             }
         }
+    stage('Deploy with Docker Compose') {
+            steps {
+                script {
+                    echo "Deploying with Docker Compose..."
+                    sh 'docker-compose -f docker-compose.yml up -d --build'
+                }
+            }
+        }
     }
 
     post {
