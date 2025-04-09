@@ -70,11 +70,27 @@ echo "Getting Project from Git"
                 }
             }
         }
+stage('List Files') {
+    steps {
+        script {
+            // Liste les fichiers dans le répertoire du projet
+            sh 'ls -la'
+        }
+    }
+}
+
+stage('Check Docker') {
+    steps {
+        sh 'docker --version'
+        sh 'docker-compose --version'
+    }
+}
+
     stage('Deploy with Docker Compose') {
             steps {
                 script {
                     echo "Deploying with Docker Compose..."
-                   sh 'docker-compose -f ./docker-compose.yml up -d --build'
+                  sh 'docker-compose -f ./docker-compose.yml up -d --build'
 
                 }
             }
