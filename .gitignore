@@ -3,9 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-# Ignore les fichiers Docker
-docker-compose.yml
-Dockerfile
+
 ### STS ###
 .apt_generated
 .classpath
