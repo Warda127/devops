@@ -17,7 +17,7 @@ NEXUS_REPO = 'http://192.168.150.245:8081/repository/maven-releases/'
         stage('GIT') {
             steps {
 echo "Getting Project from Git"
-                git url: 'https://github.com/Warda127/devops.git', branch: 'warda'
+                git url: 'https://github.com/Warda127/devops.git', branch: 'feature/warda'
 
                             }
         }
