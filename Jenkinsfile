@@ -101,7 +101,7 @@ stage('Check Docker') {
     steps {
         script {
             echo "Deploying with Docker Compose..."
-            sh 'docker-compose -f /mnt/c/Users/LENOVO/Desktop/kaddem/docker-compose.yml up -d --build'
+            sh 'export PATH=$PATH:/usr/local/bin && docker-compose -f /mnt/c/Users/LENOVO/Desktop/kaddem/docker-compose.yml up -d --build'
         }
     }
 }
