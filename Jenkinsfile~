@@ -41,16 +41,17 @@ echo "Getting Project from Git"
         }
 
         stage('SonarQube Analysis') {
-                steps {
-                    echo "Starting SonarQube analysis..."
-                    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_AUTH_TOKEN')]) {
-                        withSonarQubeEnv('SonarQube') {
-                            sh 'mvn sonar:sonar -Dsonar.projectKey=devops -Dsonar.host.url=http://localhost:9000 -Dsonar.login=${SONAR_AUTH_TOKEN}'
-                        }
+            steps {
+            echo "Starting SonarQube analysis..."
+
+            withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_AUTH_TOKEN')]) {
+                    withSonarQubeEnv('SonarQube') {
+                        sh 'mvn sonar:sonar -Dsonar.projectKey=devops -Dsonar.host.url=http://localhost:9000 -Dsonar.login=${SONAR_AUTH_TOKEN}'
                     }
                 }
             }
-
+        }
+        
 stage('Integration Tests') {
                     steps {
                         sh 'mvn install -DskipTests'
