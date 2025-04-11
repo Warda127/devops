@@ -15,7 +15,8 @@ services:
       - kaddem_network
 
   app-kaddem:
-    image: espritt/khaddem 
+    image: espritt/khaddem:1.0.0
+
     restart: on-failure
     ports:
       - "8089:8089"
