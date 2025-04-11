@@ -31,7 +31,11 @@ echo "Getting Project from Git"
                 sh 'mvn compile' 
             }
         }
-
+          stage('Build') {
+                    steps {
+                        sh 'mvn install -DskipTests'
+                    }
+                }
         stage('JUnit') {
             steps {
                 sh 'mvn test'
@@ -47,11 +51,7 @@ echo "Getting Project from Git"
                 }
             }
         }
-stage('Integration Tests') {
-                    steps {
-                        sh 'mvn install -DskipTests'
-                    }
-                }
+
  stage(' Docker Image') {
     steps {
         script {
